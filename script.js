@@ -1,43 +1,49 @@
-function LocalDb(dbName){
-	this._dbName = dbName;
-};
-
-LocalDb.prototype.getDbName = function(){
-	return this._dbName;
-};
-
-LocalDb.prototype.save = function(recordName, recordObj){
-	var recordNameInDb = this.getDbName() + "-" + recordName;
-	var recordObjInDb = JSON.stringify(recordObj);
-	window.localStorage.setItem(recordNameInDb, recordObjInDb);
-};
-
-LocalDb.prototype.get = function(recordName){
-	var recordNameInDb = this.getDbName() + "-" + recordName;
+(function(){
 	
-	if(window.localStorage.getItem(recordNameInDb) === null){
-			throw new Error("Brak wpisu w bazie danych");
-		};
-	
-	try{
-		var recordObjInDb = window.localStorage.getItem(recordNameInDb);
-		return JSON.parse(recordObjInDb);
-	}catch(e){
-	}
-};
+	if(!(window.localStorage)) return;
 
-var DB1 = new LocalDb("DB1xx");
+	function LocalDb(dbName){
+		this._dbName = dbName;
+	};
 
-DB1.getDbName();
+	LocalDb.prototype.getDbName = function(){
+		return this._dbName;
+	};
 
-var janek = {
-    firstName: "Jan",
-    lastName: "Kowalski",
-    age: 32
-};
+	LocalDb.prototype.save = function(recordName, recordObj){
+		var recordNameInDb = this.getDbName() + "-" + recordName;
+		var recordObjInDb = JSON.stringify(recordObj);
+		window.localStorage.setItem(recordNameInDb, recordObjInDb);
+	};
 
-DB1.save("janek", janek);
+	LocalDb.prototype.get = function(recordName){
+		var recordNameInDb = this.getDbName() + "-" + recordName;
 
-var janekRecovery = DB1.get("janek");
+		if(window.localStorage.getItem(recordNameInDb) === null){
+				throw new Error("Brak wpisu w bazie danych");
+			};
 
-console.dir(janekRecovery);
+		try{
+			var recordObjInDb = window.localStorage.getItem(recordNameInDb);
+			return JSON.parse(recordObjInDb);
+		}catch(e){
+		}
+	};
+
+	var DB1 = new LocalDb("DB1xx");
+
+	DB1.getDbName();
+
+	var janek = {
+		firstName: "Jan",
+		lastName: "Kowalski",
+		age: 32
+	};
+
+	DB1.save("janek", janek);
+
+	var janekRecovery = DB1.get("janek");
+
+	console.dir(janekRecovery);
+
+})();
