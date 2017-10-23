@@ -1,0 +1,24 @@
+/* CSS Document */
+body {
+	width: 800px;
+	margin: 10px auto;
+	background-color: darkgrey;
+}
+
+#errorDiv {
+	width: 100%;
+	background-color:#F97275;
+	border: #FF3135 solid thin;
+	color: #221212;
+	padding: 5px;
+	display: none;
+}
+
+#positionDiv {
+	width: 100%;
+	background-color:#7ABBF7;
+	border:#0184FF solid thin;
+	color:#00075F;
+	padding: 5px;
+	display: none; 
+}
